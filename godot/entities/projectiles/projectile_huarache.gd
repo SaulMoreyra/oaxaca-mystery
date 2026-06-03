@@ -11,12 +11,12 @@ const MAX_TRAVEL_X: float = 1400.0
 var _velocity: Vector2 = Vector2.ZERO
 var _lifetime: float = LIFETIME
 var _start_x: float = 0.0
-var _hitbox: Hitbox = null
+var _hitbox: Area2D = null
 
 func _ready() -> void:
-	_hitbox = get_node_or_null("Hitbox") as Hitbox
+	_hitbox = get_node_or_null("Hitbox") as Area2D
 	if _hitbox != null:
-		_hitbox.damage = damage
+		_hitbox.set("damage", damage)
 		_hitbox.area_entered.connect(_on_hitbox_area_entered)
 	_start_x = global_position.x
 
@@ -34,5 +34,5 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
-	if area is Hurtbox:
+	if area.has_method("receive_hit"):
 		queue_free()

@@ -1,64 +1,140 @@
-[gd_scene load_steps=7 format=3 uid="uid://c0level01atzompa"]
+[gd_scene load_steps=12 format=3 uid="uid://c0level01atzompa"]
 
-[ext_resource type="PackedScene" uid="uid://b0maestra0player" path="res://scenes/Player.tscn" id="1_player"]
+[ext_resource type="Script" path="res://scripts/level01_atzompa.gd" id="1_level"]
 [ext_resource type="Texture2D" path="res://assets/escenario-taller-patio.png" id="2_bg"]
-[ext_resource type="PackedScene" uid="uid://trainingdummy01" path="res://entities/enemies/training_dummy.tscn" id="3_dummy"]
-[ext_resource type="PackedScene" uid="uid://hudoaxaca01" path="res://ui/hud.tscn" id="4_hud"]
+[ext_resource type="PackedScene" path="res://scenes/Player.tscn" id="3_player"]
+[ext_resource type="PackedScene" path="res://entities/enemies/training_dummy.tscn" id="4_dummy"]
+[ext_resource type="PackedScene" path="res://ui/hud.tscn" id="5_hud"]
+[ext_resource type="PackedScene" path="res://scenes/checkpoint.tscn" id="6_checkpoint"]
+[ext_resource type="PackedScene" path="res://scenes/corrupted_pot.tscn" id="7_pot"]
+[ext_resource type="PackedScene" path="res://scenes/boss_gate.tscn" id="8_gate"]
 
-[sub_resource type="RectangleShape2D" id="RectShape_floor"]
-size = Vector2(3840, 120)
+[sub_resource type="RectangleShape2D" id="RectShape_floor_main"]
+size = Vector2(4000, 120)
 
-[sub_resource type="RectangleShape2D" id="RectShape_walls"]
-size = Vector2(120, 1080)
+[sub_resource type="RectangleShape2D" id="RectShape_platform_high"]
+size = Vector2(280, 48)
+
+[sub_resource type="RectangleShape2D" id="RectShape_wall"]
+size = Vector2(80, 1200)
 
 [node name="Level01_Atzompa" type="Node2D"]
+script = ExtResource("1_level")
 
-[node name="Background" type="Sprite2D" parent="."]
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scroll_ignore_camera_zoom = true
+
+[node name="FarLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.2, 0.0)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="BackgroundFar" type="Sprite2D" parent="ParallaxBackground/FarLayer"]
+position = Vector2(960, 520)
+scale = Vector2(1.95, 1.95)
+texture = ExtResource("2_bg")
+
+[node name="MidLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.45, 0.0)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="BackgroundMid" type="Sprite2D" parent="ParallaxBackground/MidLayer"]
 position = Vector2(960, 540)
 scale = Vector2(1.875, 1.875)
 texture = ExtResource("2_bg")
-centered = true
 
-[node name="Floor" type="StaticBody2D" parent="."]
+[node name="World" type="Node2D" parent="."]
+
+[node name="FloorMain" type="StaticBody2D" parent="World"]
 collision_layer = 1
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
-position = Vector2(960, 1020)
-shape = SubResource("RectShape_floor")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/FloorMain"]
+position = Vector2(2000, 1020)
+shape = SubResource("RectShape_floor_main")
 
-[node name="GreyboxFloor" type="ColorRect" parent="Floor"]
-offset_left = -960.0
+[node name="FloorVisual" type="ColorRect" parent="World/FloorMain"]
+offset_left = -40.0
 offset_top = 960.0
-offset_right = 2880.0
+offset_right = 4040.0
 offset_bottom = 1080.0
-color = Color(0.36, 0.25, 0.16, 0.85)
+color = Color(0.36, 0.25, 0.16, 0.75)
 
-[node name="WallLeft" type="StaticBody2D" parent="."]
+[node name="PlatformHigh" type="StaticBody2D" parent="World"]
+position = Vector2(1550, 900)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/PlatformHigh"]
+shape = SubResource("RectShape_platform_high")
+
+[node name="PlatformVisual" type="ColorRect" parent="World/PlatformHigh"]
+offset_left = -140.0
+offset_top = -24.0
+offset_right = 140.0
+offset_bottom = 24.0
+color = Color(0.45, 0.32, 0.2, 0.9)
+
+[node name="WallLeft" type="StaticBody2D" parent="World"]
 collision_layer = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/WallLeft"]
 position = Vector2(-40, 540)
-shape = SubResource("RectShape_walls")
+shape = SubResource("RectShape_wall")
 
-[node name="TrainingDummy" parent="." instance=ExtResource("3_dummy")]
-position = Vector2(720, 940)
+[node name="WallRight" type="StaticBody2D" parent="World"]
+collision_layer = 1
 
-[node name="Player" parent="." instance=ExtResource("1_player")]
-position = Vector2(320, 940)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/WallRight"]
+position = Vector2(3880, 540)
+shape = SubResource("RectShape_wall")
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(0, -300)
+[node name="CheckpointWorkshop" parent="World" instance=ExtResource("6_checkpoint")]
+position = Vector2(520, 940)
+checkpoint_id = &"workshop"
 
-[node name="HUD" parent="." instance=ExtResource("4_hud")]
+[node name="CheckpointYard" parent="World" instance=ExtResource("6_checkpoint")]
+position = Vector2(2180, 940)
+checkpoint_id = &"yard"
 
-[node name="Hint" type="CanvasLayer" parent="."]
+[node name="CorruptedPotA" parent="World" instance=ExtResource("7_pot")]
+position = Vector2(1480, 940)
 
-[node name="Label" type="Label" parent="Hint"]
+[node name="CorruptedPotB" parent="World" instance=ExtResource("7_pot")]
+position = Vector2(1720, 940)
+
+[node name="CorruptedPotC" parent="World" instance=ExtResource("7_pot")]
+position = Vector2(1960, 940)
+
+[node name="BossGate" parent="World" instance=ExtResource("8_gate")]
+position = Vector2(2720, 940)
+
+[node name="BossArenaMarker" type="Label" parent="World"]
+offset_left = 3180.0
+offset_top = 860.0
+offset_right = 3480.0
+offset_bottom = 900.0
+theme_override_colors/font_color = Color(0.95, 0.08, 0.45, 1)
+theme_override_font_sizes/font_size = 22
+text = "Boss arena"
+horizontal_alignment = 1
+
+[node name="Entities" type="Node2D" parent="."]
+
+[node name="Player" parent="Entities" instance=ExtResource("3_player")]
+position = Vector2(200, 940)
+
+[node name="TrainingDummy" parent="Entities" instance=ExtResource("4_dummy")]
+position = Vector2(780, 940)
+
+[node name="UI" type="Node2D" parent="."]
+
+[node name="HUD" parent="UI" instance=ExtResource("5_hud")]
+
+[node name="Hint" type="CanvasLayer" parent="UI"]
+
+[node name="Label" type="Label" parent="UI/Hint"]
 offset_left = 24.0
 offset_top = 100.0
-offset_right = 1100.0
-offset_bottom = 180.0
-theme_override_colors/font_color = Color(0.9, 0.88, 0.82, 0.9)
-theme_override_font_sizes/font_size = 16
-text = "A/D move · SPACE jump · J rebozo · K huarache · stand near dummy to take damage · hearts = HP"
+offset_right = 1200.0
+offset_bottom = 200.0
+theme_override_colors/font_color = Color(0.9, 0.88, 0.82, 0.95)
+theme_override_font_sizes/font_size = 15
+text = "Workshop → yard → break 3 corrupted pots → boss arena"

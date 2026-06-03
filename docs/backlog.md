@@ -34,7 +34,7 @@
 - **DoD:** the Jarrito chases, dies from 1 rebozo hit, and its puddle slows the Maestra.
 - *Depends on T2.*
 
-### T5 — Playable greybox level (Level01) · [TODO] · L
+### T5 — Playable greybox level (Level01) · [DONE] · L
 - Block layout: workshop entrance -> yard -> arena door. Checkpoints (2). Real background as a split `ParallaxBackground`.
 - **DoD:** the level can be traversed from start to the boss door with Jarritos along the way.
 - *Depends on T1, T4.*
