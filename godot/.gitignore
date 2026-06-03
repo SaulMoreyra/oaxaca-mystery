@@ -1,0 +1,5 @@
+# Godot 4 — archivos generados
+.godot/
+*.translation
+export_presets.cfg
+.import/

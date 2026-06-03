@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Oaxaca Mystery — Pitch + Anexos (Vertical Slice)</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css" id="theme" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Bitter:ital,wght@0,400;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --adobe: #c4a574;
+        --ocre: #8b6914;
+        --manta: #f5f0e1;
+        --sepia: #3a2a1d;
+        --sepia-soft: #5c4033;
+        --terracota: #a0522d;
+        --verde: #15c77a;
+        --verde-vidrio: #00ff9f;
+        --rosa: #ff1493;
+        --cempasuchil: #ff6b00;
+        --azul: #00d4ff;
+      }
+
+      .reveal {
+        font-family: "Bitter", Georgia, serif;
+        font-size: 30px;
+        color: var(--manta);
+      }
+      .reveal .slides section {
+        text-align: left;
+      }
+      .reveal h1,
+      .reveal h2,
+      .reveal h3,
+      .reveal h4 {
+        font-family: "Oswald", sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        color: var(--manta);
+        text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.55);
+      }
+      .reveal h1 { font-size: 2.1em; line-height: 1.05; }
+      .reveal h2 { font-size: 1.5em; color: var(--cempasuchil); }
+      .reveal h3 { font-size: 1.1em; color: var(--adobe); }
+
+      .reveal .backdrop {
+        background:
+          radial-gradient(circle at 20% 10%, rgba(139, 105, 20, 0.35), transparent 55%),
+          radial-gradient(circle at 90% 90%, rgba(160, 82, 45, 0.35), transparent 55%),
+          #1a120b;
+      }
+      .reveal-viewport {
+        background:
+          radial-gradient(circle at 50% -10%, #2a1d12, #140d07 70%);
+      }
+
+      .reveal .tag {
+        display: inline-block;
+        font-family: "Oswald", sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 0.5em;
+        padding: 0.25em 0.7em;
+        border: 2px solid var(--adobe);
+        color: var(--adobe);
+        border-radius: 2px;
+        margin-bottom: 0.4em;
+      }
+      .reveal .neon-green { color: var(--verde-vidrio); }
+      .reveal .neon-pink { color: var(--rosa); }
+      .reveal .neon-orange { color: var(--cempasuchil); }
+      .reveal .muted { color: #b9a98f; }
+
+      .reveal blockquote {
+        background: rgba(245, 240, 225, 0.06);
+        border-left: 6px solid var(--cempasuchil);
+        font-style: italic;
+        font-size: 1.05em;
+        width: 100%;
+        box-shadow: none;
+      }
+
+      .reveal table { font-size: 0.62em; }
+      .reveal table th {
+        font-family: "Oswald", sans-serif;
+        text-transform: uppercase;
+        color: var(--cempasuchil);
+        border-bottom: 2px solid var(--ocre);
+      }
+      .reveal table td { border-bottom: 1px solid rgba(196, 165, 116, 0.25); }
+
+      .reveal section img.board {
+        border: 4px solid var(--sepia-soft);
+        border-radius: 6px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        background: var(--manta);
+      }
+
+      .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9em; align-items: center; }
+      .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6em; }
+      .cols { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1em; align-items: center; }
+
+      .reveal .usp {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .reveal .usp li {
+        margin: 0.55em 0;
+        padding-left: 1.7em;
+        position: relative;
+      }
+      .reveal .usp li::before {
+        content: "▰";
+        position: absolute;
+        left: 0;
+        color: var(--verde-vidrio);
+      }
+
+      .palette { display: flex; gap: 0.4em; flex-wrap: wrap; margin-top: 0.5em; }
+      .sw {
+        width: 2.4em;
+        height: 2.4em;
+        border-radius: 4px;
+        border: 2px solid rgba(0,0,0,0.4);
+        font-family: "Oswald", sans-serif;
+        font-size: 0.34em;
+        color: #fff;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding-bottom: 2px;
+        text-shadow: 0 1px 2px #000;
+      }
+
+      .reveal pre {
+        width: 100%;
+        font-size: 0.42em;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+      }
+      .reveal pre code { max-height: 460px; padding: 1em; }
+
+      .section-divider h1 { color: var(--cempasuchil); }
+      .footer-note {
+        position: absolute;
+        bottom: 8px;
+        left: 18px;
+        font-family: "Oswald", sans-serif;
+        font-size: 0.4em;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--adobe);
+        opacity: 0.7;
+      }
+      .reveal ul, .reveal ol { font-size: 0.82em; }
+      .reveal .small ul, .reveal .small { font-size: 0.66em; }
+    </style>
+  </head>
+  <body class="backdrop">
+    <div class="reveal">
+      <div class="slides">
+        <!-- ============ PARTE A — PITCH ============ -->
+
+        <!-- Slide 1 — Portada -->
+        <section
+          data-background-image="../assets/concept/escenario-taller-patio.png"
+          data-background-size="cover"
+          data-background-color="#140d07"
+          data-background-opacity="0.28"
+        >
+          <div class="cols">
+            <div>
+              <span class="tag">Vertical Slice · iOS / Android</span>
+              <h1>Corazón de la <span class="neon-green">Alfarería</span></h1>
+              <h3 class="muted">Oaxaca Mystery · acción 2D side-scroller</h3>
+              <p class="muted" style="font-size: 0.7em; margin-top: 1em">
+                Título alterno: <em>Barro Verde Mystery</em>
+              </p>
+            </div>
+            <div>
+              <img class="board" src="../assets/concept/maestra-turnaround.png" alt="Maestra Alfarera turnaround" style="width: 100%" />
+            </div>
+          </div>
+          <div class="footer-note">Oaxaca Mystery — Pitch Deck</div>
+        </section>
+
+        <!-- Slide 2 — Elevator pitch -->
+        <section>
+          <h2>Elevator pitch</h2>
+          <blockquote>
+            Una <strong>maestra alfarera</strong> de Atzompa combate piezas de barro
+            corruptas por una energía mística, usando su <span class="neon-pink">rebozo</span>
+            y su <span class="neon-orange">huarache</span> en un side-scroller 2D con estética
+            de grabado Posada y acentos de <span class="neon-green">esmalte vidriado neón</span>.
+          </blockquote>
+          <p class="muted" style="font-size: 0.7em">Gancho de 30 segundos · cultura + combate artesanal + identidad visual única.</p>
+        </section>
+
+        <!-- Slide 3 — Fantasía y USP -->
+        <section>
+          <h2>Fantasía y propuesta única</h2>
+          <p style="font-size: 0.8em"><strong>Fantasía del jugador:</strong> defender el oficio y el taller; la violencia es <em>artesanal</em> (rebozo, huarache), no militar.</p>
+          <ul class="usp">
+            <li>Cultura oaxaqueña <strong>auténtica</strong> — alfarería de Atzompa, no decoración genérica.</li>
+            <li>Arte <strong>xilografía / linograbado</strong> + neón esmalte: contraste tierra mate vs. magia saturada.</li>
+            <li>Enemigos = <strong>piezas reales de barro</strong> con comportamiento ligado al material (salpicadura, picos, pastillaje).</li>
+          </ul>
+        </section>
+
+        <!-- Slide 4 — Género y referencias -->
+        <section>
+          <h2>Género, cámara y referencias</h2>
+          <div class="grid2">
+            <div class="small">
+              <h3>Es</h3>
+              <ul>
+                <li>Acción 2D, plataformas y combate</li>
+                <li>Vista lateral / frontal (side-scroller)</li>
+                <li>Sesiones cortas, legible en móvil</li>
+              </ul>
+            </div>
+            <div class="small">
+              <h3>No es (en v1)</h3>
+              <ul>
+                <li>Metroidvania grande</li>
+                <li>RPG de stats complejos</li>
+                <li>Mundo abierto</li>
+              </ul>
+            </div>
+          </div>
+          <p class="muted" style="font-size: 0.62em; margin-top: 0.6em">
+            Referencias de sensación (no copia): <em>Mega Man</em> (proyectil + melee) ·
+            <em>Shovel Knight</em> (legibilidad) · <em>Hollow Knight</em> (peso de jefe).
+          </p>
+        </section>
+
+        <!-- Slide 5 — Core loop -->
+        <section>
+          <h2>Core loop</h2>
+          <div class="cols">
+            <div>
+              <pre><code class="language-text" data-trim>
+Explorar  ──▶  Combatir barro   ──▶  Liberar
+patio/taller   corrupto              esmalte / efectos
+                                         │
+                                         ▼
+                  ◀───────────────  Enfrentar al jefe
+              </code></pre>
+            </div>
+            <div class="small">
+              <h3>Mecánica central</h3>
+              <p>Derrotar o interactuar libera <span class="neon-green">esmalte</span> y ataques según las propiedades físicas del enemigo.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 6 — Alcance vertical slice -->
+        <section>
+          <h2>Alcance del vertical slice</h2>
+          <table>
+            <thead><tr><th>In — v0.1 jugable</th><th>Out — post-slice</th></tr></thead>
+            <tbody>
+              <tr><td>1 nivel: taller + patio de secado (Atzompa)</td><td>Más niveles / mapa mundo</td></tr>
+              <tr><td>Maestra: rebozo + huarache</td><td>Nuevas habilidades, upgrades</td></tr>
+              <tr><td>4 enemigos + jefe Serpiente (2 fases)</td><td>Narrativa larga, cutscenes</td></tr>
+              <tr><td>HUD mínimo + 3 pantallas</td><td>Tienda, monetización</td></tr>
+              <tr><td>NPC Maestro Alfarero (tutorial)</td><td>Diálogos extendidos</td></tr>
+              <tr><td>Arte: personaje + bestiario + escenario <span class="neon-green">(listo)</span></td><td>Localización multi-idioma</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Slide 7 — Nivel 1 Atzompa -->
+        <section>
+          <h2>Nivel 1 — Santa María Atzompa</h2>
+          <img class="board" src="../assets/concept/escenario-taller-patio.png" alt="Taller y patio de secado de adobe" style="width: 82%" />
+          <div class="small" style="margin-top: 0.3em">
+            <p class="muted">Taller + patio de secado: adobe mate, horno de barro, estantes con piezas de barro verde, telas de manta. Acentos de esmalte neón solo en las piezas corruptas.</p>
+          </div>
+        </section>
+
+        <!-- Slide 7b — Recorrido del nivel -->
+        <section>
+          <h3>Recorrido del nivel</h3>
+          <pre><code class="language-text" data-trim>
+[ Entrada taller ] ──▶ [ Patio de secado ] ──▶ [ Arena del jefe ]
+   tutorial NPC          oleadas + esmalte         maceta → serpiente
+          </code></pre>
+          <div class="small">
+            <ul>
+              <li><strong>Peligro ambiental:</strong> charcos de esmalte del Jarrito (ralentizan).</li>
+              <li><strong>Duración:</strong> 8–15 min primera pasada / 25–40 min con exploración.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Slide 8 — Protagonista -->
+        <section>
+          <h2>La Maestra Alfarera</h2>
+          <div class="cols">
+            <div>
+              <img class="board" src="../assets/concept/maestra-rebozo.png" alt="Ataque rebozo látigo" style="width: 100%" />
+            </div>
+            <div class="small">
+              <p>~55 años · chongo canoso · blusa de manta · falda magenta/naranja · rebozo gris · huaraches.</p>
+              <h3>Dos acciones en slice</h3>
+              <ul>
+                <li><span class="neon-pink">Rebozo látigo</span> — melee (5 frames diseñados)</li>
+                <li><span class="neon-orange">Huarache lanzado</span> — ranged (5 frames diseñados)</li>
+              </ul>
+            </div>
+          </div>
+          <div class="footer-note">Concept art entregado — no placeholder</div>
+        </section>
+
+        <!-- Slide 8 huarache detail -->
+        <section>
+          <h3>Huarache lanzado — secuencia</h3>
+          <img class="board" src="../assets/concept/maestra-huarache.png" alt="Ataque huarache lanzado" style="width: 78%" />
+        </section>
+
+        <!-- Slide 8b — NPC -->
+        <section>
+          <h2>NPC — El Maestro Alfarero</h2>
+          <div class="small">
+            <ul>
+              <li><strong>Rol:</strong> aliado de historia (no jugable, no enemigo).</li>
+              <li>Joven alfarero con sombrero y machete; ciclos <code>walk</code> + <code>run</code> ya diseñados.</li>
+              <li><strong>Uso en slice:</strong> contexto / tutorial mínimo; motiva el conflicto.</li>
+            </ul>
+            <p class="muted">Ampliar narrativa post-slice. La fila "RUN" del concept es solo su ciclo de carrera.</p>
+          </div>
+        </section>
+
+        <!-- Slide 9 — Bestiario -->
+        <section>
+          <h2>Bestiario — Nivel 1</h2>
+          <div class="cols">
+            <div>
+              <img class="board" src="../assets/concept/bestiario.png" alt="Bestiario nivel 1" style="width: 100%" />
+            </div>
+            <div>
+              <table>
+                <thead><tr><th>Enemigo</th><th>Rol</th></tr></thead>
+                <tbody>
+                  <tr><td>Jarrito Saltarín</td><td>Spam / aprendizaje</td></tr>
+                  <tr><td>Guardián Dos Caras</td><td>Melee pressure</td></tr>
+                  <tr><td>Ofrenda Flotante</td><td>Ranged</td></tr>
+                  <tr><td>Pez Pochote</td><td>Flank / embestida</td></tr>
+                  <tr><td><strong>Gran Serpiente</strong></td><td>Jefe 2 fases</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 9b — Jefe -->
+        <section>
+          <h2>Jefe — Gran Serpiente de Barro Pochote</h2>
+          <div class="cols">
+            <div>
+              <img class="board" src="../assets/concept/jefe-serpiente.png" alt="Jefe serpiente 2 fases" style="width: 100%" />
+            </div>
+            <div class="small">
+              <h3>Fase 1 — Maceta</h3>
+              <p>Rest → Awaken → Growinto → Growth. Transformación in-game (skippable).</p>
+              <h3>Fase 2 — Serpiente</h3>
+              <p>Mordisco rápido · ráfaga de picos · ventana vulnerable con <span class="neon-pink">núcleo rosa mexicano</span>.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 10 — Look & feel -->
+        <section>
+          <h2>Look &amp; feel</h2>
+          <div class="small">
+            <ul>
+              <li>Xilografía Posada: contornos gruesos, volumen solo por <strong>achurado</strong>.</li>
+              <li>Animación fluida con "respiración" sutil del grabado en props.</li>
+              <li>El estilo ya está <strong>probado y consistente</strong> en 5 láminas — no es aspiracional.</li>
+            </ul>
+          </div>
+          <h3 style="margin-top: 0.4em">Paleta</h3>
+          <div class="palette">
+            <div class="sw" style="background: #c4a574">adobe</div>
+            <div class="sw" style="background: #8b6914">ocre</div>
+            <div class="sw" style="background: #f5f0e1; color: #333; text-shadow: none">manta</div>
+            <div class="sw" style="background: #5c4033">sepia</div>
+            <div class="sw" style="background: #00ff9f; color: #044; text-shadow: none">verde</div>
+            <div class="sw" style="background: #ff1493">rosa</div>
+            <div class="sw" style="background: #ff6b00">cempa</div>
+            <div class="sw" style="background: #00d4ff; color: #033; text-shadow: none">azul</div>
+          </div>
+        </section>
+
+        <!-- Slide 11 — Roadmap -->
+        <section>
+          <h2>Roadmap hacia slice jugable</h2>
+          <table>
+            <thead><tr><th>Fase</th><th>Duración</th><th>Entregable</th></tr></thead>
+            <tbody>
+              <tr><td>1. Pre-producción</td><td>2–3 sem</td><td>GDD slice, paper proto, lista assets</td></tr>
+              <tr><td>2. Prototipo gris</td><td>3–4 sem</td><td>Movimiento, hitboxes, 1 enemigo</td></tr>
+              <tr><td>3. Producción</td><td>6–8 sem</td><td>Nivel, 4 enemigos, jefe, arte final</td></tr>
+              <tr><td>4. Polish</td><td>2–3 sem</td><td>Juice + audio + build de prueba</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Slide 12 — Cierre -->
+        <section data-background-color="#140d07">
+          <h2>Cierre</h2>
+          <div class="small">
+            <ul>
+              <li><strong>Ask:</strong> financiamiento / artista 2D / socio dev / feedback de playtest.</li>
+              <li><strong>Entregable del slice:</strong> APK/IPA + video gameplay de 2 min.</li>
+              <li><strong>Estado:</strong> cast completo en arte; gap = escenario + integración en motor.</li>
+            </ul>
+          </div>
+          <p class="neon-green" style="font-family: 'Oswald'; letter-spacing: 0.1em; margin-top: 0.8em">
+            El riesgo de arte de personajes ya está resuelto.
+          </p>
+        </section>
+
+        <!-- ============ PARTE B — ANEXOS ============ -->
+        <section class="section-divider" data-background-color="#1f140b">
+          <h1>Parte B — <span class="neon-orange">Anexos</span></h1>
+          <p class="muted">Gameplay · Art Bible · Tech &amp; producción</p>
+          <p class="small muted">Detalle completo en <code>docs/GDD.md</code>, <code>docs/art-bible.md</code> y <code>docs/backlog.md</code>.</p>
+        </section>
+
+        <!-- Anexo Gameplay G2 -->
+        <section>
+          <h2>Anexo G2 — Sistemas (números slice)</h2>
+          <table>
+            <thead><tr><th>Sistema</th><th>Valor v0.1</th></tr></thead>
+            <tbody>
+              <tr><td>Vida del jugador</td><td>4 corazones (8 medios)</td></tr>
+              <tr><td>Daño rebozo</td><td>2 dmg · 1-hit Jarrito · stagger Guardián</td></tr>
+              <tr><td>Daño huarache</td><td>3 dmg · cooldown 1.5 s · munición ∞</td></tr>
+              <tr><td>Esmalte en suelo</td><td>slow 50% por 2 s</td></tr>
+              <tr><td>i-frames tras golpe</td><td>0.8 s</td></tr>
+              <tr><td>Checkpoints</td><td>2 antes del jefe</td></tr>
+            </tbody>
+          </table>
+          <p class="muted" style="font-size: 0.55em">Valores placeholder — se calibran en el prototipo gris.</p>
+        </section>
+
+        <!-- Anexo Gameplay G6 enemigos -->
+        <section>
+          <h2>Anexo G6 — Fichas enemigas</h2>
+          <table>
+            <thead><tr><th>Enemigo</th><th>HP</th><th>Ataque</th><th>Al morir</th></tr></thead>
+            <tbody>
+              <tr><td>Jarrito Saltarín</td><td>2</td><td>Brinco + salpicadura</td><td>Charco esmalte (slow)</td></tr>
+              <tr><td>Guardián Dos Caras</td><td>8</td><td>Lengua látigo / giro de picos</td><td>—</td></tr>
+              <tr><td>Ofrenda Flotante</td><td>4</td><td>Flores de barro (proyectil)</td><td>—</td></tr>
+              <tr><td>Pez Pochote</td><td>5</td><td>Embestida de picos</td><td>—</td></tr>
+              <tr><td>Serpiente (jefe)</td><td>40</td><td>Mordisco / ráfaga picos</td><td>Fin de nivel</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Anexo Art A2 + A9 -->
+        <section>
+          <h2>Anexo Art — estado real</h2>
+          <table>
+            <thead><tr><th>Asset</th><th>Estado</th></tr></thead>
+            <tbody>
+              <tr><td>Maestra rebozo / huarache</td><td class="neon-green">Concept listo</td></tr>
+              <tr><td>Maestra walk / idle / hurt / death</td><td>Pendiente (derivar)</td></tr>
+              <tr><td>Bestiario L1 (4 + NPC)</td><td class="neon-green">Concept listo</td></tr>
+              <tr><td>Jefe fase 1 + fase 2</td><td class="neon-green">Concept listo</td></tr>
+              <tr><td>Tileset / ambientación (taller+patio)</td><td class="neon-green">Concept listo</td></tr>
+              <tr><td>Sprites game-ready, VFX, UI/HUD</td><td>Pendiente</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Anexo Art A10 mega prompt -->
+        <section>
+          <h2>Anexo A10 — Prompt maestro IA</h2>
+          <p class="small muted">Referencia de consistencia para sprites y tileset faltante. Texto íntegro en <code>docs/art-bible.md</code>.</p>
+          <pre><code class="language-text" data-trim>
+Estilo: imitación de grabado tradicional en madera/metal (xilografía /
+linograbado, José Guadalupe Posada). Contornos oscuros, gruesos y texturizados.
+Volumen SOLO por achurado (cross-hatching) y puntos de grabado.
+
+Paleta tierra mate (adobe, sepia, ocre, terracota, crema de manta) + acentos
+neón saturados: Verde Esmeralda Vidriado, Rosa Mexicano, Naranja Cempasúchil,
+Azul Neón. Fondo de hoja: pergamino oaxaqueño texturizado.
+          </code></pre>
+        </section>
+
+        <!-- Anexo Tech -->
+        <section>
+          <h2>Anexo Tech — stack</h2>
+          <div class="small">
+            <ol>
+              <li><strong>Godot 4</strong> (elegido) — 2D nativo, export iOS/Android, ideal equipo pequeño.</li>
+              <li>Unity 2D — alternativa si ya dominas el ecosistema.</li>
+              <li>Evitar React Native/Expo para combat platformer con hitboxes precisas.</li>
+            </ol>
+            <p class="muted">Escenas: <code>MainMenu</code> → <code>Level01_Atzompa</code> → <code>BossArena</code>. Autoloads: <code>GameState</code>, <code>AudioManager</code>.</p>
+          </div>
+        </section>
+
+        <!-- Cierre anexos -->
+        <section data-background-color="#140d07">
+          <h1 class="neon-green">Gracias</h1>
+          <p class="muted">Oaxaca Mystery — vertical slice</p>
+          <p class="small muted">Repo: <code>oaxaca-mystery/</code> · GDD, art bible, backlog y proyecto Godot incluidos.</p>
+        </section>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+    <script>
+      Reveal.initialize({
+        hash: true,
+        slideNumber: "c/t",
+        transition: "fade",
+        backgroundTransition: "fade",
+        plugins: [RevealHighlight, RevealNotes],
+      });
+    </script>
+  </body>
+</html>

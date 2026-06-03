@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://c0level01atzompa"]
+
+[ext_resource type="PackedScene" uid="uid://b0maestra0player" path="res://scenes/Player.tscn" id="1_player"]
+[ext_resource type="Texture2D" path="res://assets/escenario-taller-patio.png" id="2_bg"]
+
+[sub_resource type="RectangleShape2D" id="RectShape_floor"]
+size = Vector2(3840, 120)
+
+[sub_resource type="RectangleShape2D" id="RectShape_walls"]
+size = Vector2(120, 1080)
+
+[node name="Level01_Atzompa" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(960, 540)
+scale = Vector2(1.875, 1.875)
+texture = ExtResource("2_bg")
+centered = true
+
+[node name="Floor" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2(960, 1020)
+shape = SubResource("RectShape_floor")
+
+[node name="GreyboxFloor" type="ColorRect" parent="Floor"]
+offset_left = -960.0
+offset_top = 960.0
+offset_right = 2880.0
+offset_bottom = 1080.0
+color = Color(0.36, 0.25, 0.16, 0.85)
+
+[node name="WallLeft" type="StaticBody2D" parent="."]
+collision_layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft"]
+position = Vector2(-40, 540)
+shape = SubResource("RectShape_walls")
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(320, 940)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(0, -300)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Hint" type="Label" parent="HUD"]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 760.0
+offset_bottom = 120.0
+text = "A/D mover · ESPACIO saltar · J rebozo · K huarache"
