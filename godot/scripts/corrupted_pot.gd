@@ -1,7 +1,7 @@
 extends StaticBody2D
 ## Breakable corrupted clay pot — counts toward opening the boss gate (GDD G7).
 
-@onready var _health: Health = $Health
+@onready var _health: Node = $Health
 
 func _ready() -> void:
 	add_to_group("corrupted_pot")

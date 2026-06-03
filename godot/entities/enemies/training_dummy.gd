@@ -5,15 +5,16 @@ const STRIKE_RANGE: float = 140.0
 const STRIKE_INTERVAL: float = 1.8
 const STRIKE_ACTIVE_TIME: float = 0.2
 
-@onready var _health: Health = $Health
-@onready var _strike_hitbox: Hitbox = $StrikeHitbox
+@onready var _health: Node = $Health
+@onready var _strike_hitbox: Area2D = $StrikeHitbox
 @onready var _strike_timer: Timer = $StrikeTimer
 
 func _ready() -> void:
 	_health.damaged.connect(_on_damaged)
 	_health.died.connect(_on_died)
 	_strike_timer.timeout.connect(_on_strike_timer)
-	_strike_hitbox.disable()
+	if _strike_hitbox.has_method("disable"):
+		_strike_hitbox.disable()
 
 func _on_strike_timer() -> void:
 	var player := _find_player()

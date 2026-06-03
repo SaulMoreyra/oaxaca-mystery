@@ -1,10 +1,9 @@
-class_name Hurtbox
 extends Area2D
-## Receives hits from opposing Hitbox nodes and forwards damage to Health.
+## Receives hits from opposing hitbox areas and forwards damage to a Health node.
 
 @export_enum("player", "enemy") var team: String = "enemy"
 
-var _health: Health = null
+var _health: Node = null
 
 func _ready() -> void:
 	_health = _find_health()
@@ -12,7 +11,9 @@ func _ready() -> void:
 func receive_hit(hitbox: Area2D) -> void:
 	if _health == null:
 		_health = _find_health()
-	if _health == null or _health.is_dead():
+	if _health == null or not _health.has_method("take_damage"):
+		return
+	if _health.has_method("is_dead") and _health.is_dead():
 		return
 	var damage_amount: int = int(hitbox.get("damage"))
 	if damage_amount <= 0:
@@ -36,11 +37,11 @@ func _find_knockback_body() -> Node:
 		node = node.get_parent()
 	return null
 
-func _find_health() -> Health:
+func _find_health() -> Node:
 	var node: Node = get_parent()
 	while node != null:
 		var health_node := node.get_node_or_null("Health")
-		if health_node is Health:
-			return health_node as Health
+		if health_node != null and health_node.has_method("take_damage"):
+			return health_node
 		node = node.get_parent()
 	return null

@@ -32,8 +32,8 @@ func _setup_camera_limits() -> void:
 func _connect_corrupted_pots() -> void:
 	_pots_remaining = 0
 	for node in get_tree().get_nodes_in_group("corrupted_pot"):
-		var health := node.get_node_or_null("Health") as Health
-		if health == null:
+		var health: Node = node.get_node_or_null("Health")
+		if health == null or not health.has_signal("died"):
 			continue
 		_pots_remaining += 1
 		health.died.connect(_on_pot_broken)

@@ -1,4 +1,3 @@
-class_name Health
 extends Node
 ## HP pool with optional invulnerability after taking damage (GDD G2: 0.8 s).
 
