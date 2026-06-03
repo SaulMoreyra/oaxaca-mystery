@@ -9,8 +9,10 @@ Godot 4 project with the skeleton of the vertical slice.
 ## Open
 
 1. Open Godot 4, click **Import**, and select `oaxaca-mystery/godot/project.godot`.
-2. Godot will finish importing the background texture and assign UIDs automatically the first time.
+2. Let the editor finish importing assets (creates `.import` files under `assets/`). If the background fails to load, reimport `assets/escenario-taller-patio.png` (must be a real PNG, not JPEG renamed).
 3. Press **Play** (F5). The main scene is `scenes/Level01_Atzompa.tscn`.
+
+**If you see `Could not find type Hitbox/Health`:** pull the latest `fix/godot-load-errors` changes (circular script dependency fix).
 
 ## Controls (keyboard)
 

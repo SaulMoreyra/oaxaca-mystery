@@ -6,7 +6,7 @@ extends Area2D
 @export var knockback: float = 0.0
 @export_enum("player", "enemy") var team: String = "player"
 
-var _struck_hurtboxes: Array[Hurtbox] = []
+var _struck_areas: Array[Area2D] = []
 
 func _ready() -> void:
 	area_entered.connect(_on_area_entered)
@@ -14,7 +14,7 @@ func _ready() -> void:
 	monitorable = false
 
 func enable() -> void:
-	_struck_hurtboxes.clear()
+	_struck_areas.clear()
 	monitoring = true
 	show()
 
@@ -23,12 +23,11 @@ func disable() -> void:
 	hide()
 
 func _on_area_entered(area: Area2D) -> void:
-	if not area is Hurtbox:
+	if not area.has_method("receive_hit"):
 		return
-	var hurtbox := area as Hurtbox
-	if hurtbox.team == team:
+	if area.get("team") == team:
 		return
-	if hurtbox in _struck_hurtboxes:
+	if area in _struck_areas:
 		return
-	_struck_hurtboxes.append(hurtbox)
-	hurtbox.receive_hit(self)
+	_struck_areas.append(area)
+	area.receive_hit(self)

@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" path="res://scripts/level01_atzompa.gd" id="1_level"]
 [ext_resource type="Texture2D" path="res://assets/escenario-taller-patio.png" id="2_bg"]
-[ext_resource type="PackedScene" uid="uid://b0maestra0player" path="res://scenes/Player.tscn" id="3_player"]
-[ext_resource type="PackedScene" uid="uid://trainingdummy01" path="res://entities/enemies/training_dummy.tscn" id="4_dummy"]
-[ext_resource type="PackedScene" uid="uid://hudoaxaca01" path="res://ui/hud.tscn" id="5_hud"]
-[ext_resource type="PackedScene" uid="uid://checkpoint01" path="res://scenes/checkpoint.tscn" id="6_checkpoint"]
-[ext_resource type="PackedScene" uid="uid://corruptedpot01" path="res://scenes/corrupted_pot.tscn" id="7_pot"]
-[ext_resource type="PackedScene" uid="uid://bossgate01" path="res://scenes/boss_gate.tscn" id="8_gate"]
+[ext_resource type="PackedScene" path="res://scenes/Player.tscn" id="3_player"]
+[ext_resource type="PackedScene" path="res://entities/enemies/training_dummy.tscn" id="4_dummy"]
+[ext_resource type="PackedScene" path="res://ui/hud.tscn" id="5_hud"]
+[ext_resource type="PackedScene" path="res://scenes/checkpoint.tscn" id="6_checkpoint"]
+[ext_resource type="PackedScene" path="res://scenes/corrupted_pot.tscn" id="7_pot"]
+[ext_resource type="PackedScene" path="res://scenes/boss_gate.tscn" id="8_gate"]
 
 [sub_resource type="RectangleShape2D" id="RectShape_floor_main"]
 size = Vector2(4000, 120)
