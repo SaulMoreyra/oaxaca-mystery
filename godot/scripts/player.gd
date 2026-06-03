@@ -21,9 +21,9 @@ var _coyote_timer: float = 0.0
 var _jump_buffer_timer: float = 0.0
 var _huarache_timer: float = 0.0
 var _facing: int = 1
-var _rebozo_hitbox: Hitbox = null
+var _rebozo_hitbox: Area2D = null
 var _rebozo_busy: bool = false
-var _health: Health = null
+var _health: Node = null
 var _spawn_position: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
@@ -33,16 +33,18 @@ func _ready() -> void:
 	GameState.set_checkpoint(_spawn_position)
 	GameState.reset_player_health()
 
-	_rebozo_hitbox = get_node_or_null("RebozoHitbox") as Hitbox
+	_rebozo_hitbox = get_node_or_null("RebozoHitbox")
 	if _rebozo_hitbox != null:
-		_rebozo_hitbox.damage = REBOZO_DAMAGE
-		_rebozo_hitbox.disable()
+		_rebozo_hitbox.set("damage", REBOZO_DAMAGE)
+		if _rebozo_hitbox.has_method("disable"):
+			_rebozo_hitbox.disable()
 		_update_rebozo_facing()
 
-	_health = get_node_or_null("Health") as Health
-	if _health != null:
-		_health.max_hp = GameState.player_max_hp
-		_health.sync_hp(GameState.player_hp)
+	_health = get_node_or_null("Health")
+	if _health != null and _health.has_method("take_damage"):
+		_health.set("max_hp", GameState.player_max_hp)
+		if _health.has_method("sync_hp"):
+			_health.sync_hp(GameState.player_hp)
 		_health.damaged.connect(_on_health_damaged)
 		_health.died.connect(_on_health_died)
 
@@ -92,7 +94,7 @@ func _handle_attacks(delta: float) -> void:
 		_huarache_timer = huarache_cooldown
 
 func _rebozo_attack() -> void:
-	if _rebozo_hitbox == null:
+	if _rebozo_hitbox == null or not _rebozo_hitbox.has_method("enable"):
 		return
 	_rebozo_busy = true
 	_update_rebozo_facing()
@@ -124,14 +126,17 @@ func _on_health_died() -> void:
 	_respawn()
 
 func _respawn() -> void:
-	if _health != null:
+	if _health != null and _health.has_method("heal_full"):
 		_health.heal_full()
 	GameState.reset_player_health()
 	global_position = GameState.last_checkpoint
 	velocity = Vector2.ZERO
 
 func _update_invulnerability_visual() -> void:
-	if _health == null or not _health.is_invulnerable():
+	if _health == null or not _health.has_method("is_invulnerable"):
+		modulate = Color.WHITE
+		return
+	if not _health.is_invulnerable():
 		modulate = Color.WHITE
 		return
 	var blink_on: bool = int(Time.get_ticks_msec() / 80) % 2 == 0

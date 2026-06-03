@@ -1,6 +1,5 @@
-class_name Hitbox
 extends Area2D
-## Active damage dealer. Hits opposing Hurtbox areas once per enable cycle per target.
+## Active damage dealer. Hits opposing hurtbox areas once per enable cycle per target.
 
 @export var damage: int = 1
 @export var knockback: float = 0.0
