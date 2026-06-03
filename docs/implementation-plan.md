@@ -8,7 +8,7 @@ Ordered phases to avoid rework. **Phase 0 must land before combat features.**
 |-------|--------|--------|
 | 0 | Damage architecture (autoloads + components) | Done |
 | 1 | Combat loop (rebozo, huarache, training dummy) | Done |
-| 2 | Player health + HUD + i-frames | Pending |
+| 2 | Player health + HUD + i-frames | Done |
 | 3 | Playable Level01 (parallax, checkpoints) | Pending |
 | 4 | Enemies (Jarrito, Guardián, Ofrenda, Pez) | Pending |
 | 5 | Boss (2 phases) | Pending |
