@@ -7,16 +7,7 @@ extends Area2D
 var _health: Health = null
 
 func _ready() -> void:
-	area_entered.connect(_on_area_entered)
 	_health = _find_health()
-
-func _on_area_entered(area: Area2D) -> void:
-	if not area is Hitbox:
-		return
-	var hitbox := area as Hitbox
-	if hitbox.team == team:
-		return
-	receive_hit(hitbox)
 
 func receive_hit(hitbox: Hitbox) -> void:
 	if _health == null:
