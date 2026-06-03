@@ -18,13 +18,13 @@
 - **DoD:** the Maestra moves and jumps over the greybox floor with responsive feel.
 - *Base delivered in `scripts/player.gd`; calibrate values in playtest.*
 
-### T2 — Rebozo whip (melee) · [TODO] · M
+### T2 — Rebozo whip (melee) · [DONE] · M
 - Frontal hitbox `Area2D` triggered by `attack_rebozo`, 2 damage (G2), active window ~2 frames.
 - Placeholder VFX (sparkle). No cancellation.
 - **DoD:** hitting destroys a test pot and applies damage to a dummy.
 - *Depends on T1.*
 
-### T3 — Huarache throw (projectile) · [TODO] · M
+### T3 — Huarache throw (projectile) · [DONE] · M
 - `ProjectileHuarache` scene (Area2D + arcing movement), 3 damage, 1.5 s cooldown, despawn on impact/edge.
 - **DoD:** throwing via `attack_huarache` hits a dummy at range and respects the cooldown.
 - *Depends on T1.*

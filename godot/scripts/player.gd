@@ -3,6 +3,11 @@ extends CharacterBody2D
 ## Platformer movement + two attacks (rebozo melee, huarache ranged).
 ## Numeric values come from docs/GDD.md (appendix G2).
 
+const PROJECTILE_SCENE := preload("res://entities/projectiles/projectile_huarache.tscn")
+const REBOZO_ACTIVE_TIME: float = 0.15
+const REBOZO_DAMAGE: int = 2
+const HUARACHE_DAMAGE: int = 3
+
 @export var speed: float = 320.0
 @export var jump_velocity: float = -780.0
 @export var huarache_cooldown: float = 1.5
@@ -16,9 +21,16 @@ var _coyote_timer: float = 0.0
 var _jump_buffer_timer: float = 0.0
 var _huarache_timer: float = 0.0
 var _facing: int = 1
+var _rebozo_hitbox: Hitbox = null
+var _rebozo_busy: bool = false
 
 func _ready() -> void:
 	_gravity = ProjectSettings.get_setting("physics/2d/default_gravity", 980.0)
+	_rebozo_hitbox = get_node_or_null("RebozoHitbox") as Hitbox
+	if _rebozo_hitbox != null:
+		_rebozo_hitbox.damage = REBOZO_DAMAGE
+		_rebozo_hitbox.disable()
+		_update_rebozo_facing()
 
 func _physics_process(delta: float) -> void:
 	_apply_gravity(delta)
@@ -50,13 +62,14 @@ func _handle_move() -> void:
 	if direction != 0.0:
 		velocity.x = direction * speed
 		_facing = 1 if direction > 0.0 else -1
+		_update_rebozo_facing()
 	else:
 		velocity.x = move_toward(velocity.x, 0.0, speed)
 
 func _handle_attacks(delta: float) -> void:
-	_huarache_timer = max(0.0, _huarache_timer - delta)
+	_huarache_timer = maxf(0.0, _huarache_timer - delta)
 
-	if Input.is_action_just_pressed("attack_rebozo"):
+	if Input.is_action_just_pressed("attack_rebozo") and not _rebozo_busy:
 		_rebozo_attack()
 
 	if Input.is_action_just_pressed("attack_huarache") and _huarache_timer <= 0.0:
@@ -64,9 +77,25 @@ func _handle_attacks(delta: float) -> void:
 		_huarache_timer = huarache_cooldown
 
 func _rebozo_attack() -> void:
-	# TODO: enable frontal hitbox (2 dmg) and play the 5-frame animation.
-	print("[Maestra] Rebozo whip -> facing ", _facing)
+	if _rebozo_hitbox == null:
+		return
+	_rebozo_busy = true
+	_update_rebozo_facing()
+	_rebozo_hitbox.enable()
+	await get_tree().create_timer(REBOZO_ACTIVE_TIME).timeout
+	_rebozo_hitbox.disable()
+	_rebozo_busy = false
 
 func _huarache_attack() -> void:
-	# TODO: instance ProjectileHuarache (3 dmg) with an arc toward _facing.
-	print("[Maestra] Huarache throw -> facing ", _facing)
+	var projectile: Node2D = PROJECTILE_SCENE.instantiate()
+	var spawn_offset := Vector2(_facing * 48.0, -72.0)
+	projectile.global_position = global_position
+	if projectile.has_method("setup"):
+		projectile.setup(_facing, spawn_offset)
+	get_tree().current_scene.add_child(projectile)
+
+func _update_rebozo_facing() -> void:
+	if _rebozo_hitbox == null:
+		return
+	_rebozo_hitbox.position.x = 56.0 * float(_facing)
+	_rebozo_hitbox.scale.x = float(_facing)

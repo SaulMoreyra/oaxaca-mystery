@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c0level01atzompa"]
+[gd_scene load_steps=6 format=3 uid="uid://c0level01atzompa"]
 
 [ext_resource type="PackedScene" uid="uid://b0maestra0player" path="res://scenes/Player.tscn" id="1_player"]
 [ext_resource type="Texture2D" path="res://assets/escenario-taller-patio.png" id="2_bg"]
+[ext_resource type="PackedScene" uid="uid://trainingdummy01" path="res://entities/enemies/training_dummy.tscn" id="3_dummy"]
 
 [sub_resource type="RectangleShape2D" id="RectShape_floor"]
 size = Vector2(3840, 120)
@@ -39,6 +40,9 @@ collision_layer = 1
 position = Vector2(-40, 540)
 shape = SubResource("RectShape_walls")
 
+[node name="TrainingDummy" parent="." instance=ExtResource("3_dummy")]
+position = Vector2(720, 940)
+
 [node name="Player" parent="." instance=ExtResource("1_player")]
 position = Vector2(320, 940)
 
@@ -50,6 +54,6 @@ position = Vector2(0, -300)
 [node name="Hint" type="Label" parent="HUD"]
 offset_left = 24.0
 offset_top = 24.0
-offset_right = 760.0
+offset_right = 900.0
 offset_bottom = 120.0
-text = "A/D mover · ESPACIO saltar · J rebozo · K huarache"
+text = "A/D move · SPACE jump · J rebozo (2 dmg) · K huarache (3 dmg) · green dummy = target"
