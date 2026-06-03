@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" path="res://scenes/corrupted_pot.tscn" id="7_pot"]
 [ext_resource type="PackedScene" path="res://scenes/boss_gate.tscn" id="8_gate"]
 
+
 [sub_resource type="RectangleShape2D" id="RectShape_floor_main"]
 size = Vector2(4000, 120)
 
