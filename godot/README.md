@@ -43,4 +43,4 @@ godot/
 - T2 Rebozo: frontal `Area2D` hitbox dealing 2 damage.
 - T3 Huarache: `ProjectileHuarache` scene with an arc and 3 damage.
 - T4 Jarrito Saltarín + glaze puddles.
-- Split the background into parallax layers (`ParallaxBackground`).
+- Level01 has parallax background, two checkpoints, three breakable corrupted pots, and a boss gate.
