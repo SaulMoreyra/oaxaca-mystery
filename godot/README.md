@@ -21,7 +21,7 @@ Godot 4 project with the skeleton of the vertical slice.
 | J | Rebozo whip (melee) |
 | K | Huarache throw (ranged) |
 
-The attacks only print to the console for now (see TODOs in `scripts/player.gd`).
+Combat deals real damage. The player has a heart HUD, i-frames (0.8s), knockback, and respawns at spawn. Stand near the training dummy to take periodic strike damage.
 
 ## Structure
 

@@ -40,3 +40,9 @@ func is_dead() -> bool:
 func heal_full() -> void:
 	hp = max_hp
 	_invuln_timer = 0.0
+
+func is_invulnerable() -> bool:
+	return _invuln_timer > 0.0
+
+func sync_hp(value: int) -> void:
+	hp = clampi(value, 0, max_hp)

@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://b0maestra0player"]
+[gd_scene load_steps=7 format=3 uid="uid://b0maestra0player"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_player"]
 [ext_resource type="Script" path="res://components/hitbox.gd" id="2_hitbox"]
+[ext_resource type="Script" path="res://components/health.gd" id="3_health"]
+[ext_resource type="Script" path="res://components/hurtbox.gd" id="4_hurtbox"]
 
 [sub_resource type="RectangleShape2D" id="RectShape_player"]
 size = Vector2(64, 128)
@@ -9,10 +11,30 @@ size = Vector2(64, 128)
 [sub_resource type="RectangleShape2D" id="RectShape_rebozo"]
 size = Vector2(96, 48)
 
+[sub_resource type="RectangleShape2D" id="RectShape_hurt"]
+size = Vector2(56, 112)
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 1
 script = ExtResource("1_player")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("3_health")
+max_hp = 8
+invulnerability_duration = 0.8
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 32
+monitoring = false
+monitorable = true
+script = ExtResource("4_hurtbox")
+team = "player"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, -60)
+shape = SubResource("RectShape_hurt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -64)

@@ -23,20 +23,35 @@ var _huarache_timer: float = 0.0
 var _facing: int = 1
 var _rebozo_hitbox: Hitbox = null
 var _rebozo_busy: bool = false
+var _health: Health = null
+var _spawn_position: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
+	add_to_group("player")
 	_gravity = ProjectSettings.get_setting("physics/2d/default_gravity", 980.0)
+	_spawn_position = global_position
+	GameState.set_checkpoint(_spawn_position)
+	GameState.reset_player_health()
+
 	_rebozo_hitbox = get_node_or_null("RebozoHitbox") as Hitbox
 	if _rebozo_hitbox != null:
 		_rebozo_hitbox.damage = REBOZO_DAMAGE
 		_rebozo_hitbox.disable()
 		_update_rebozo_facing()
 
+	_health = get_node_or_null("Health") as Health
+	if _health != null:
+		_health.max_hp = GameState.player_max_hp
+		_health.sync_hp(GameState.player_hp)
+		_health.damaged.connect(_on_health_damaged)
+		_health.died.connect(_on_health_died)
+
 func _physics_process(delta: float) -> void:
 	_apply_gravity(delta)
 	_handle_jump(delta)
 	_handle_move()
 	_handle_attacks(delta)
+	_update_invulnerability_visual()
 	move_and_slide()
 
 func _apply_gravity(delta: float) -> void:
@@ -93,6 +108,34 @@ func _huarache_attack() -> void:
 	if projectile.has_method("setup"):
 		projectile.setup(_facing, spawn_offset)
 	get_tree().current_scene.add_child(projectile)
+
+func apply_knockback(from_global_position: Vector2, force: float) -> void:
+	var direction: float = signf(global_position.x - from_global_position.x)
+	if direction == 0.0:
+		direction = -float(_facing)
+	velocity.x = direction * force
+
+func _on_health_damaged(amount: int, remaining: int) -> void:
+	GameState.player_hp = remaining
+	Events.player_damaged.emit(amount, remaining)
+
+func _on_health_died() -> void:
+	await get_tree().create_timer(0.4).timeout
+	_respawn()
+
+func _respawn() -> void:
+	if _health != null:
+		_health.heal_full()
+	GameState.reset_player_health()
+	global_position = GameState.last_checkpoint
+	velocity = Vector2.ZERO
+
+func _update_invulnerability_visual() -> void:
+	if _health == null or not _health.is_invulnerable():
+		modulate = Color.WHITE
+		return
+	var blink_on: bool = int(Time.get_ticks_msec() / 80) % 2 == 0
+	modulate = Color(1.0, 1.0, 1.0, 0.45) if blink_on else Color.WHITE
 
 func _update_rebozo_facing() -> void:
 	if _rebozo_hitbox == null:
